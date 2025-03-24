@@ -22,7 +22,7 @@ public:
         int g = __gcd(num, den);
         num /= g;
         den /= g;
-        if (num < 0)
+        if (den < 0)
         {
             num *= -1;
             den *= -1;
@@ -39,11 +39,14 @@ public:
     {
         cout << this->num << "/" << this->den << "\n";
     }
+    int getNum() const { return this->num; }
+    int getDen() const { return this->den; }
 };
 
-fraction rndFraction(int maxNum = INF, int maxDen = INF, int minNum = -INF, int minDen = 1)
+fraction rndFraction(int maxNum = 1e3, int maxDen = 1e3, int minNum = -1e3, int minDen = 1)
 {
     fraction f(random(minNum, maxNum), random(minDen, maxDen));
+    f.simplify();
     return f;
 }
 
@@ -54,14 +57,16 @@ private:
 
 public:
     unsigned int size() const { return this->vf.size(); }
+
     arrPhanSo(int n = 0, bool createRandomly = false)
     {
-        fraction temp(0, 1);
         for (int i = 0; i < n; i++)
-            if (!createRandomly)
-                vf.push_back(temp);
-            else
-                vf.push_back(rndFraction());
+        {
+            fraction temp;
+            if (createRandomly)
+                temp = rndFraction();
+            vf.push_back(temp);
+        }
     }
     void Input()
     {
@@ -81,6 +86,35 @@ public:
         for (fraction f : vf)
             f.Output();
     }
+    void Sort(bool ascending = true)
+    {
+        if (ascending)
+            sort(this->vf.begin(), this->vf.end(), [](fraction a, fraction b)
+                 { return a.getNum() * b.getDen() < a.getDen() * b.getNum(); });
+        else
+            sort(this->vf.begin(), this->vf.end(), [](fraction a, fraction b)
+                 { return a.getNum() * b.getDen() > a.getDen() * b.getNum(); });
+    }
+    fraction randomAccess(int index) const
+    {
+        fraction a;
+        if (index >= vf.size())
+            return a;
+        else
+            return vf[index];
+    }
+    int countPrimeNum() const
+    {
+        vector<bool> prime(2001, true);
+        for (int p = 2; p * p <= 2001; p++)
+            if (prime[p] == true)
+                for (int i = p * p; i <= 2001; i += p)
+                    prime[i] = false;
+        int result = 0;
+        for (auto f : vf)
+            result += (bool)prime[abs(f.getNum())];
+        return result;
+    }
 };
 
 int main()
@@ -95,6 +129,14 @@ int main()
     arrPhanSo randomArray(n, true);
     randomArray.Output();
 
-    
+    randomArray.Sort();
+    cout << "Phan so lon nhat la. ";
+    randomArray.randomAccess(randomArray.size() - 1).Output();
+
+    cout << "Sap xep tang dan. \n";
+    randomArray.Output();
+
+    cout << "Co " << randomArray.countPrimeNum() << " phan so co tu so la so nguyen to.";
+
     return 0;
 }
