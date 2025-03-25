@@ -133,10 +133,9 @@ int main()
     cout << "Phan so lon nhat la. ";
     randomArray.randomAccess(randomArray.size() - 1).Output();
 
-    cout << "Sap xep tang dan. \n";
-    randomArray.Output();
-
     cout << "Co " << randomArray.countPrimeNum() << " phan so co tu so la so nguyen to.";
 
+    cout << "Sap xep tang dan. \n";
+    randomArray.Output();
     return 0;
 }
