@@ -75,8 +75,8 @@ public:
 		}
 	}
 
-	long long LấyTửSố() const { return this->TửSố; }
-	long long LấyMẫuSố() const { return this->MẫuSố; }
+	long long LấyTửSố() const { return TửSố; }
+	long long LấyMẫuSố() const { return MẫuSố; }
 
 	friend PhânSố operator+(Hằng PhânSố &a, Hằng PhânSố &b)
 	{
@@ -209,31 +209,31 @@ public:
 
 	void Nhập() Hằng
 	{
-		for (int i = 0; i < this->LấyKíchThước(); i++)
+		for (int i = 0; i < LấyKíchThước(); i++)
 		{
 			xuất << "Nhap phan so thu " << i << ", vi du 1/2.  ";
-			nhập >> this->DữLiệu[i];
+			nhập >> DữLiệu[i];
 		}
 	}
 
 	void Xuất() Hằng
 	{
-		for (int i = 0; i < this->LấyKíchThước(); i++)
-			xuất << "#" << i << ": " << this->DữLiệu[i] << XuốngDòng;
+		for (int i = 0; i < LấyKíchThước(); i++)
+			xuất << "#" << i << ": " << DữLiệu[i] << XuốngDòng;
 	}
 
 	PhânSố TínhTổng() Hằng
 	{
 		PhânSố res;
-		for (int i = 0; i < this->LấyKíchThước(); i++)
-			res += this->DữLiệu[i];
+		for (int i = 0; i < LấyKíchThước(); i++)
+			res += DữLiệu[i];
 		return res;
 	}
 
 	PhânSố TìmLớnNhất() Hằng
 	{
 		PhânSố res = *DữLiệu;
-		for (int i = 1; i < this->LấyKíchThước(); i++)
+		for (int i = 1; i < LấyKíchThước(); i++)
 			res = max(res, *(DữLiệu + i));
 		return res;
 	}
@@ -241,26 +241,26 @@ public:
 	PhânSố TìmNhỏNhất() Hằng
 	{
 		PhânSố res = *DữLiệu;
-		for (int i = 1; i < this->LấyKíchThước(); i++)
+		for (int i = 1; i < LấyKíchThước(); i++)
 			res = min(res, *(DữLiệu + i));
 		return res;
 	}
 
 	void SắpXếpTăngDần()
 	{
-		sort(this->DữLiệu, this->DữLiệu + this->LấyKíchThước());
+		sort(DữLiệu, DữLiệu + LấyKíchThước());
 	}
 
 	void SắpXếpGiảmDần()
 	{
-		sort(this->DữLiệu, this->DữLiệu + this->LấyKíchThước(), greater<PhânSố>());
+		sort(DữLiệu, DữLiệu + LấyKíchThước(), greater<PhânSố>());
 	}
 
 	PhânSố TìmTửNguyênTốLớnNhất(int *prime) Hằng
 	{
-		for (int i = 0; i < this->LấyKíchThước(); i++)
-			if (prime[this->DữLiệu[i].LấyTửSố()])
-				return this->DữLiệu[i];
+		for (int i = 0; i < LấyKíchThước(); i++)
+			if (prime[DữLiệu[i].LấyTửSố()])
+				return DữLiệu[i];
 
 		// Không tìm thấy
 		return (PhânSố)-1.0;

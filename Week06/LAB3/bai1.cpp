@@ -22,8 +22,8 @@ struct Point
 
 	double distance(const Point &other) const
 	{
-		double X = this->x - other.x;
-		double Y = this->y - other.y;
+		double X = x - other.x;
+		double Y = y - other.y;
 		return sqrt(pow(X, 2) + pow(Y, 2));
 	}
 };
@@ -35,43 +35,43 @@ private:
 
 	double sideLength(int i, int j) const
 	{
-		return this->data[i].distance(this->data[j]);
+		return data[i].distance(data[j]);
 	}
 
 public:
 	Triangle(Point A = {0, 0}, Point B = {0, 0}, Point C = {0, 0})
 		: data(nullptr)
 	{
-		this->data = new Point[3];
-		this->data[0] = A;
-		this->data[1] = B;
-		this->data[2] = C;
+		data = new Point[3];
+		data[0] = A;
+		data[1] = B;
+		data[2] = C;
 	}
 	~Triangle()
 	{
-		if (this->data != nullptr)
-			delete[] this->data;
+		if (data != nullptr)
+			delete[] data;
 	}
 
 	double Perimeter() const
 	{
-		return this->sideLength(0, 1) + this->sideLength(1, 2) + this->sideLength(2, 0);
+		return sideLength(0, 1) + sideLength(1, 2) + sideLength(2, 0);
 	}
 
 	double Area() const
 	{
-		double a = this->sideLength(0, 1);
-		double b = this->sideLength(1, 2);
-		double c = this->sideLength(2, 0);
-		double s = this->Perimeter() / 2;
+		double a = sideLength(0, 1);
+		double b = sideLength(1, 2);
+		double c = sideLength(2, 0);
+		double s = Perimeter() / 2;
 		return sqrt(s * (s - a) * (s - b) * (s - c));
 	}
 
 	string TriangleType() const
 	{
-		double a = this->sideLength(0, 1);
-		double b = this->sideLength(1, 2);
-		double c = this->sideLength(2, 0);
+		double a = sideLength(0, 1);
+		double b = sideLength(1, 2);
+		double c = sideLength(2, 0);
 
 		if (comparator(a, b) && comparator(b, c))
 			return "Tam giac Deu";
@@ -86,8 +86,8 @@ public:
 	{
 		for (int i = 0; i < 3; ++i)
 		{
-			this->data[i].x += dx;
-			this->data[i].y += dy;
+			data[i].x += dx;
+			data[i].y += dy;
 		}
 	}
 
@@ -96,10 +96,10 @@ public:
 		double rad = deg * M_PI / 180.0;
 		for (int i = 0; i < 3; ++i)
 		{
-			double newX = this->data[i].x * cos(rad) - this->data[i].y * sin(rad);
-			double newY = this->data[i].x * sin(rad) + this->data[i].y * cos(rad);
-			this->data[i].x = newX;
-			this->data[i].y = newY;
+			double newX = data[i].x * cos(rad) - data[i].y * sin(rad);
+			double newY = data[i].x * sin(rad) + data[i].y * cos(rad);
+			data[i].x = newX;
+			data[i].y = newY;
 		}
 	}
 
